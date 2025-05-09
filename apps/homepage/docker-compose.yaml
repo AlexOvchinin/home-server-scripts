@@ -3,11 +3,10 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     environment:
-      HOMEPAGE_ALLOWED_HOSTS: steel.fmn:3000,steel.fmn.com:3000,192.168.1.18:3000
+      HOMEPAGE_ALLOWED_HOSTS: steel.fmn.com:3000,192.168.1.18:3000
     ports:
       - 3000:3000
     volumes:
-      # - /hot/configs/gethomepage:/app/config # Make sure your local config directory exists
       - /hot/apps/homepage/configs:/app/config
       - /hot/apps/homepage/images:/app/public/images
       # - /var/run/docker.sock:/var/run/docker.sock:ro # optional, for docker integrations
