@@ -5,6 +5,6 @@
         description: Container management
         widget:
           type: portainer
-          url: http://steel.fmn/portainer
+          url: http://steel.fmn.com/portainer
           env: 3
           key: ptr_K0qXeR5zwwF9NKm+q7shs91yIu1wBeGOZcCFgpzVkAM=
