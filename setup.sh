@@ -46,7 +46,7 @@ update_homepage() {
     mkdir "$APPS_DIR/homepage"
     ln -s "$SOURCE_DIR/apps/homepage/images" "$APPS_DIR/homepage/images"
     mkdir "$APPS_DIR/homepage/configs"
-    for source_file in "$SOURCE_DIR/homepage/configs"/*; do
+    for source_file in "$SOURCE_DIR/homepage/configs/*"; do
         local filename=$(basename "source_file")
         local target_path="$APPS_DIR/homepage/configs/$filename"
         log "Creating symlink for $filename"
