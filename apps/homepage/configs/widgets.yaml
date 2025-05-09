@@ -14,4 +14,4 @@
 
 - resources:
     label: Hot storage
-    disk: /mnt/data_lv
+    disk: /mnt/data_lv/
