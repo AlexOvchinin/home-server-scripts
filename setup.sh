@@ -5,7 +5,7 @@
 
 # Configuration
 SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DOCKER_COMPOSE_DIR = "$SOURCE_DIR/docker"
+DOCKER_COMPOSE_DIR="$SOURCE_DIR/docker"
 CONFIG_DIR="$SOURCE_DIR/configs"  # Configs stored in subdirectory of script location
 TARGET_DIR="/hot/apps"      # Where symlinks will be created
 LOG_FILE="$SOURCE_DIR/service-manager.log"
@@ -20,6 +20,7 @@ show_help() {
     echo "Usage: $0 [command] [options]"
     echo "Commands:"
     echo "  update-configs    - Update service configurations by creating symlinks"
+    echo "  launch-all        - Launch all service"
     echo "  restart-all       - Restart all services"
     echo "  restart <service> - Restart a specific service"
     echo "  status            - Show status of all services"
@@ -39,7 +40,7 @@ setup_environment() {
 }
 
 # Update configurations by creating symlinks
-update_configs() {
+update() {
     echo "Starting configuration update..."
     ln -s "$SOURCE_DIR/apps" "$TARGET_DIR"
     echo "Configuration updated finished"
@@ -90,8 +91,8 @@ show_status() {
 # Main command processor
 main() {
     case "$1" in
-        update-configs)
-            update_configs
+        update)
+            update
             ;;
         launch-all)
             launch_all
