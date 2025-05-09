@@ -56,7 +56,7 @@ restart_all() {
 launch_all() {
     echo "Launching all services"
     echo "Launching home page"
-    docker compose -f "$DOCKER_COMPOSE_DIR/gethomepage/docker-compose.yaml" up -d
+    docker compose -f "$TARGET_DIR/gethomepage/docker-compose.yaml" up -d
     echo "All service launched"
 }
 
