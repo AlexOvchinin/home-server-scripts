@@ -15,3 +15,9 @@
 - resources:
     label: Hot storage
     disk: /hot
+
+- resources:
+    label: System
+    cpu: true
+    cputemp: true
+    memory: true
