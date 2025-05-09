@@ -17,3 +17,7 @@
 - resources:
     label: Hot storage
     disk: /hot
+
+- resources:
+    label: Cold storage
+    disk: /cold
