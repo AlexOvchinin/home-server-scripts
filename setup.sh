@@ -41,9 +41,9 @@ setup_environment() {
 
 update_homepage() {
     log "Updating homepage"
-    rm -rf "$APPS_DIR/homepage/*"
-    rm -rf "$APPS_DIR/homepage"
-    mkdir "$APPS_DIR/homepage"
+    if [ ! -d "$APPS_DIR/homepage" ]; then
+        mkdir "$APPS_DIR/homepage" && mkdir "$APPS_DIR/homepage/configs"
+    fi
     cp -r "$SOURCE_DIR/apps/homepage/configs" "$APPS_DIR/homepage/configs"
     ln -s "$SOURCE_DIR/apps/homepage/images" "$APPS_DIR/homepage/images"
     ln -s "$SOURCE_DIR/apps/homepage/docker-compose.yaml" "$APPS_DIR/homepage/docker-compose.yaml"
