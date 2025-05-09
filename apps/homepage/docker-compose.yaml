@@ -9,6 +9,6 @@ services:
     volumes:
       - /hot/apps/homepage/configs:/app/config
       - /hot/apps/homepage/images:/app/public/images
-      # - /hot:/hot
+      - /hot:/hot
       # - /var/run/docker.sock:/var/run/docker.sock:ro # optional, for docker integrations
     restart: unless-stopped
