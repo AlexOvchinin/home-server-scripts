@@ -7,7 +7,7 @@
 SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOCKER_COMPOSE_DIR="$SOURCE_DIR/docker"
 CONFIG_DIR="$SOURCE_DIR/configs"  # Configs stored in subdirectory of script location
-TARGET_DIR="/hot/apps"      # Where symlinks will be created
+APPS_DIR="/hot/apps"      # Where symlinks will be created
 LOG_FILE="$SOURCE_DIR/service-manager.log"
 
 # Initialize logging
@@ -30,24 +30,39 @@ show_help() {
 # Verify and prepare environment
 setup_environment() {
     # Create target directory if missing
-    if [ ! -d "$TARGET_DIR" ]; then
-        log "Creating target directory: $TARGET_DIR"
-        mkdir -p "$TARGET_DIR" || {
+    if [ ! -d "$APPS_DIR" ]; then
+        log "Creating target directory: $APPS_DIR"
+        mkdir -p "$APPS_DIR" || {
             log "ERROR: Failed to create target directory"
             exit 1
         }
     fi
 }
 
+update_homepage() {
+    log "Updating homepage"
+    rm -rf "$APPS_DIR/homepage/*"
+    rm -rf "$APPS_DIR/homepage"
+    mkdir "$APPS_DIR/homepage"
+    ln -s "$SOURCE_DIR/apps/homepage/images" "$APPS_DIR/homepage/images"
+    mkdir "$APPS_DIR/apps/homepage/configs"
+    for source_file in "$SOURCE_DIR/homepage/configs"/*; do
+        local filename=$(basename "source_file")
+        local target_path="$APPS_DIR/homepage/configs/$filename"
+        log "Creating symlink for $filename"
+        ln -s "$source_file" "$target_path"
+    done
+    log "Finished updating homepage"
+}
+
 # Update configurations by creating symlinks
 update() {
     log "Starting configuration update..."
     log "Creating apps folder"
-    mkdir "$TARGET_DIR"
-    log "Creating homepage symbolic link"
-    ln -s "$SOURCE_DIR/apps/homepage" "$TARGET_DIR/homepage"
+    mkdir "$APPS_DIR"
+    update_homepage
     log "Creating portainer symbolic link"
-    ln -s "$SOURCE_DIR/apps/portainer" "$TARGET_DIR/portainer"
+    ln -s "$SOURCE_DIR/apps/portainer" "$APPS_DIR/portainer"
     log "Create nginx conf symbolic link"
     ln -s "$SOURCE_DIR/apps/nginx/main.conf" "/etc/nginx/conf.d/main.conf"
     log "Configuration updated finished"
@@ -67,7 +82,7 @@ restart_docker_service() {
     fi
 
     log "Restarting $service_name"
-    docker compose -f "$TARGET_DIR/$service_name/docker-compose.yaml" up -d --force-recreate
+    docker compose -f "$APPS_DIR/$service_name/docker-compose.yaml" up -d --force-recreate
 }
 
 # Restart all services
@@ -101,7 +116,7 @@ restart_service() {
             exit 1
     esac
     # Example implementation:
-    # if [ -f "$TARGET_DIR/$service_name.conf" ]; then
+    # if [ -f "$APPS_DIR/$service_name.conf" ]; then
     #     systemctl restart "$service_name"
     # else
     #     log "ERROR: Service $service_name not found"
@@ -118,7 +133,7 @@ show_status() {
     # while read -r config; do
     #     local service=$(basename "$config" .conf)
     #     systemctl status "$service" --no-pager -l
-    # done < <(ls "$TARGET_DIR"/*.conf)
+    # done < <(ls "$APPS_DIR"/*.conf)
 }
 
 # Main command processor
