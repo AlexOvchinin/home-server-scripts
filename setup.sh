@@ -44,17 +44,13 @@ update() {
     echo "Starting configuration update..."
     echo "Creating apps folder"
     mkdir "$TARGET_DIR/apps"
-    echo "Creating home page symbolic link"
+    echo "Creating homepage symbolic link"
     ln -s "$SOURCE_DIR/apps/gethomepage" "$TARGET_DIR/apps/gethomepage"
+    echo "Creating portainer symbolic link"
+    ln -s "$SOURCE_DIR/apps/portainer" "$TARGET_DIR/apps/portainer"
     echo "Create nginx conf symbolic link"
     ln -s "$SOURCE_DIR/apps/nginx/main.conf" "/etc/nginx/conf.d/main.conf"
     echo "Configuration updated finished"
-}
-
-restart_homepage() {
-    echo "Restarting home page"
-    docker compose -f "$TARGET_DIR/gethomepage/docker-compose.yaml" up -d --force-recreate
-    echo "Finished restarting home page"
 }
 
 restart_nginx() {
@@ -63,11 +59,23 @@ restart_nginx() {
     echo "Finished restarting nginx"
 }
 
+restart_docker_service() {
+    local service_name="$1"
+    if [ -z "$service_name" ]; then
+        log "ERROR: Service name not specified"
+        return 1
+    fi
+
+    echo "Restarting $service_name"
+    docker compose -f "$TARGET_DIR/$service_name/docker-compose.yaml" up -d --force-recreate
+}
+
 # Restart all services
 restart_all() {
     log "Restarting all services..."
     restart_nginx
-    restart_homepage
+    restart_docker_service "homepage"
+    restart_docker_service "portainer"
     log "All services restarted."
 }
 
@@ -85,8 +93,8 @@ restart_service() {
         nginx)
             restart_nginx
             ;;
-        homepage)
-            restart_homepage
+        homepage|portainer)
+            restart_docker_service $service_name
             ;;
         *)
             echo "Unknown service $service_name"
