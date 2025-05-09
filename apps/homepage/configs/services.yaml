@@ -1,3 +1,10 @@
 - Management:
     - Portainer:
+        icon: portainer.svg
         href: http://steel.fmn/portainer
+        description: Container management
+        widget:
+          type: portainer
+          url: http://steel.fmn/portainer
+          env: 1
+          key: ptr_K0qXeR5zwwF9NKm+q7shs91yIu1wBeGOZcCFgpzVkAM=
