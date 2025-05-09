@@ -1,6 +1,6 @@
 - Management:
     - Portainer:
-        icon: portainer.svg
+        icon: portainer.png
         href: http://steel.fmn/portainer
         description: Container management
         widget:
