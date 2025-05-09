@@ -66,8 +66,8 @@ restart_nginx() {
 # Restart all services
 restart_all() {
     log "Restarting all services..."
-    restart_nginx()
-    restart_homepage()
+    restart_nginx
+    restart_homepage
     log "All services restarted."
 }
 
