@@ -1,0 +1,17 @@
+- greeting:
+    text_size: xl
+    text: Hello, walker
+
+- resources:
+    label: System
+    cpu: true
+    cputemp: true
+    memory: true
+
+- resources:
+    label: System storage
+    disk: /mnt/storage
+
+- resources:
+    label: Hot storage
+    disk: /hot
