@@ -10,8 +10,8 @@
 
 - resources:
     label: System storage
-    disk: /mnt/storage
+    disk: /
 
 - resources:
     label: Hot storage
-    disk: /hot
+    disk: /mnt/data_lv
