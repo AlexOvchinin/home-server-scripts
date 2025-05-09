@@ -49,14 +49,15 @@ update() {
 # Restart all services
 restart_all() {
     log "Restarting all services..."
-    docker compose restart
+    docker compose down
+    docker compose up -d
     log "All services restarted."
 }
 
 launch_all() {
     echo "Launching all services"
     echo "Launching home page"
-    docker compose -f "$TARGET_DIR/gethomepage/docker-compose.yaml" up -d
+    docker compose -f "$TARGET_DIR/gethomepage/docker-compose.yaml" up -d --force-recreate
     echo "All service launched"
 }
 
