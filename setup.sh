@@ -41,22 +41,22 @@ setup_environment() {
 
 # Update configurations by creating symlinks
 update() {
-    echo "Starting configuration update..."
-    echo "Creating apps folder"
+    log "Starting configuration update..."
+    log "Creating apps folder"
     mkdir "$TARGET_DIR"
-    echo "Creating homepage symbolic link"
+    log "Creating homepage symbolic link"
     ln -s "$SOURCE_DIR/apps/homepage" "$TARGET_DIR/homepage"
-    echo "Creating portainer symbolic link"
+    log "Creating portainer symbolic link"
     ln -s "$SOURCE_DIR/apps/portainer" "$TARGET_DIR/portainer"
-    echo "Create nginx conf symbolic link"
+    log "Create nginx conf symbolic link"
     ln -s "$SOURCE_DIR/apps/nginx/main.conf" "/etc/nginx/conf.d/main.conf"
-    echo "Configuration updated finished"
+    log "Configuration updated finished"
 }
 
 restart_nginx() {
-    echo "Restating nginx"
+    log "Restating nginx"
     systemctl restart nginx
-    echo "Finished restarting nginx"
+    log "Finished restarting nginx"
 }
 
 restart_docker_service() {
@@ -66,7 +66,7 @@ restart_docker_service() {
         return 1
     fi
 
-    echo "Restarting $service_name"
+    log "Restarting $service_name"
     docker compose -f "$TARGET_DIR/$service_name/docker-compose.yaml" up -d --force-recreate
 }
 
@@ -97,7 +97,7 @@ restart_service() {
             restart_docker_service $service_name
             ;;
         *)
-            echo "Unknown service $service_name"
+            log "Unknown service $service_name"
             exit 1
     esac
     # Example implementation:
