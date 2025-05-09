@@ -49,7 +49,7 @@ update() {
 # Restart all services
 restart_all() {
     log "Restarting all services..."
-    docker compose -f "$TARGET_DIR/apps/gethomepage/docker-compose.yaml" up -d
+    docker compose restart
     log "All services restarted."
 }
 
