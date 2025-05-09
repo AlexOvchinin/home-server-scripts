@@ -44,7 +44,7 @@ update_homepage() {
     if [ ! -d "$APPS_DIR/homepage" ]; then
         mkdir "$APPS_DIR/homepage" && mkdir "$APPS_DIR/homepage/configs"
     fi
-    cp -r -v "$SOURCE_DIR/apps/homepage/configs/" "$APPS_DIR/homepage/configs/"
+    cp -r -v "$SOURCE_DIR/apps/homepage/configs/" "$APPS_DIR/homepage/"
     ln -s "$SOURCE_DIR/apps/homepage/images" "$APPS_DIR/homepage/images"
     ln -s "$SOURCE_DIR/apps/homepage/docker-compose.yaml" "$APPS_DIR/homepage/docker-compose.yaml"
     log "Finished updating homepage"
