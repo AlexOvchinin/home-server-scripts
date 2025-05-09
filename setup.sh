@@ -54,7 +54,9 @@ update_homepage() {
 update() {
     log "Starting configuration update..."
     log "Creating apps folder"
-    mkdir "$APPS_DIR"
+    if [ ! -d "$APPS_DIR" ]; then
+        mkdir "$APPS_DIR"
+    fi
     update_homepage
     log "Creating portainer symbolic link"
     ln -s "$SOURCE_DIR/apps/portainer" "$APPS_DIR/portainer"

@@ -4,11 +4,11 @@ services:
     container_name: homepage
     environment:
       HOMEPAGE_ALLOWED_HOSTS: steel.fmn.com:3000,192.168.1.18:3000
-      LOG_LEVEL: debug
     ports:
       - 3000:3000
     volumes:
       - /hot/apps/homepage/configs:/app/config
       - /hot/apps/homepage/images:/app/public/images
+      - /hot:/hot
       # - /var/run/docker.sock:/var/run/docker.sock:ro # optional, for docker integrations
     restart: unless-stopped
