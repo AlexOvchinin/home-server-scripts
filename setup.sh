@@ -45,7 +45,7 @@ update() {
     echo "Creating apps folder"
     mkdir "$TARGET_DIR/apps"
     echo "Creating homepage symbolic link"
-    ln -s "$SOURCE_DIR/apps/gethomepage" "$TARGET_DIR/apps/gethomepage"
+    ln -s "$SOURCE_DIR/apps/homepage" "$TARGET_DIR/apps/homepage"
     echo "Creating portainer symbolic link"
     ln -s "$SOURCE_DIR/apps/portainer" "$TARGET_DIR/apps/portainer"
     echo "Create nginx conf symbolic link"
