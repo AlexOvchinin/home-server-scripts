@@ -42,23 +42,33 @@ setup_environment() {
 # Update configurations by creating symlinks
 update() {
     echo "Starting configuration update..."
-    ln -s "$SOURCE_DIR/apps" "$TARGET_DIR"
+    echo "Creating apps folder"
+    mkdir "$TARGET_DIR/apps"
+    echo "Creating home page symbolic link"
+    ln -s "$SOURCE_DIR/apps/gethomepage" "$TARGET_DIR/apps/gethomepage"
+    echo "Create nginx conf symbolic link"
+    ln -s "$SOURCE_DIR/apps/nginx/main.conf" "/etc/nginx/conf.d/main.conf"
     echo "Configuration updated finished"
+}
+
+restart_homepage() {
+    echo "Restarting home page"
+    docker compose -f "$TARGET_DIR/gethomepage/docker-compose.yaml" up -d --force-recreate
+    echo "Finished restarting home page"
+}
+
+restart_nginx() {
+    echo "Restating nginx"
+    systemctl restart nginx
+    echo "Finished restarting nginx"
 }
 
 # Restart all services
 restart_all() {
     log "Restarting all services..."
-    docker compose down
-    docker compose up -d
+    restart_nginx()
+    restart_homepage()
     log "All services restarted."
-}
-
-launch_all() {
-    echo "Launching all services"
-    echo "Launching home page"
-    docker compose -f "$TARGET_DIR/gethomepage/docker-compose.yaml" up -d --force-recreate
-    echo "All service launched"
 }
 
 # Restart specific service
@@ -70,6 +80,18 @@ restart_service() {
     fi
     
     log "Restarting service: $service_name"
+
+    case "$1" in
+        nginx)
+            restart_nginx
+            ;;
+        homepage)
+            restart_homepage
+            ;;
+        *)
+            echo "Unknown service $service_name"
+            exit 1
+    esac
     # Example implementation:
     # if [ -f "$TARGET_DIR/$service_name.conf" ]; then
     #     systemctl restart "$service_name"
@@ -82,6 +104,8 @@ restart_service() {
 # Show status of all services
 show_status() {
     log "Current service status:"
+    docker ps
+    systemctl status nginx
     # Example implementation:
     # while read -r config; do
     #     local service=$(basename "$config" .conf)
@@ -94,9 +118,6 @@ main() {
     case "$1" in
         update)
             update
-            ;;
-        launch-all)
-            launch_all
             ;;
         restart-all)
             restart_all
