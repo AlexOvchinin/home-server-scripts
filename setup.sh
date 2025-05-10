@@ -61,6 +61,15 @@ update_jellyfin() {
     log "Finished updating jellyfin"
 }
 
+update_samba() {
+    log "Updating samba"
+    if [ ! -d "/etc/samba/smb.conf" ]; then
+        log "Creating symlink for configuration"
+        ln -s "$SOURCE_DIR/apps/samba/smb.conf" "/etc/samba/smb.conf"
+    fi
+    log "Finished updating samba"
+}
+
 # Update configurations by creating symlinks
 update() {
     log "Starting configuration update..."
@@ -74,6 +83,7 @@ update() {
     log "Create nginx conf symbolic link"
     ln -s "$SOURCE_DIR/apps/nginx/main.conf" "/etc/nginx/conf.d/main.conf"
     update_jellyfin
+    update_samba
     log "Configuration updated finished"
 }
 
@@ -81,6 +91,12 @@ restart_nginx() {
     log "Restating nginx"
     systemctl restart nginx
     log "Finished restarting nginx"
+}
+
+restart_samba() {
+    log "Restaring samba"
+    systemctl restart smbd
+    log "Finished restarting samba"
 }
 
 restart_docker_service() {
@@ -98,6 +114,7 @@ restart_docker_service() {
 restart_all() {
     log "Restarting all services..."
     restart_nginx
+    restart_samba
     restart_docker_service "homepage"
     restart_docker_service "portainer"
     restart_docker_service "jellyfin"
@@ -117,6 +134,9 @@ restart_service() {
     case "$1" in
         nginx)
             restart_nginx
+            ;;
+        samba)
+            restart_samba
             ;;
         homepage|portainer|jellyfin)
             restart_docker_service $service_name
