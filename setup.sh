@@ -8,11 +8,10 @@ SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOCKER_COMPOSE_DIR="$SOURCE_DIR/docker"
 CONFIG_DIR="$SOURCE_DIR/configs"  # Configs stored in subdirectory of script location
 APPS_DIR="/hot/apps"      # Where symlinks will be created
-LOG_FILE="$SOURCE_DIR/service-manager.log"
 
 # Initialize logging
 log() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
 }
 
 # Help function
