@@ -70,7 +70,7 @@ update() {
     fi
     update_homepage
     log "Creating portainer symbolic link"
-    ln -s "$SOURCE_DIR/apps/portainer" "$APPS_DIR/portainer"
+    ln -sfn "$SOURCE_DIR/apps/portainer" "$APPS_DIR/portainer"
     log "Create nginx conf symbolic link"
     ln -s "$SOURCE_DIR/apps/nginx/main.conf" "/etc/nginx/conf.d/main.conf"
     update_jellyfin
