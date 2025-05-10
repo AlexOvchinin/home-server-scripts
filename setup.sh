@@ -90,12 +90,14 @@ update() {
 restart_nginx() {
     log "Restating nginx"
     systemctl restart nginx
+    sudo systemctl status nginx
     log "Finished restarting nginx"
 }
 
 restart_samba() {
     log "Restaring samba"
     systemctl restart smbd
+    sudo systemctl status smbd
     log "Finished restarting samba"
 }
 
@@ -118,6 +120,7 @@ restart_all() {
     restart_docker_service "homepage"
     restart_docker_service "portainer"
     restart_docker_service "jellyfin"
+    sudo docker ps
     log "All services restarted."
 }
 
