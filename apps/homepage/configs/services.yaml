@@ -11,9 +11,9 @@
 - Entertaiment:
     - Jellyfin:
         icon: jellyfin.png
-        href: http://steel.fmn.com/portainer
+        href: http://steel.fmn.com/jellyfin
         description: Media streaming
         widget:
           type: jellyfin
-          url: http://steel.fmn.com/portainer
+          url: http://steel.fmn.com/jellyfin
           key: 7d9fcc4529d345bd9d6bdb5de62d7e46
