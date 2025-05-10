@@ -70,6 +70,14 @@ update_samba() {
     log "Finished updating samba"
 }
 
+update_deluge() {
+    log "Updating delude"
+    log "Create systemd services"
+    ln -sfn "$SOURCE_DIR/apps/deluge/deluged.service" "/etc/systemd/system/deluged.service"
+    ln -sfn "$SOURCE_DIR/apps/deluge/deluge-web.service" "/etc/systemd/system/deluge-web.service"
+    log "Finished updating deluge"
+}
+
 # Update configurations by creating symlinks
 update() {
     log "Starting configuration update..."
@@ -84,6 +92,7 @@ update() {
     ln -s "$SOURCE_DIR/apps/nginx/main.conf" "/etc/nginx/conf.d/main.conf"
     update_jellyfin
     update_samba
+    update_deluge
     log "Configuration updated finished"
 }
 
@@ -112,11 +121,21 @@ restart_docker_service() {
     docker compose -f "$APPS_DIR/$service_name/docker-compose.yaml" up -d --force-recreate
 }
 
+restart_deluge() {
+    log "Restaring deluge"
+    systemctl restart deluged
+    sudo systemctl status deluged
+    systemctl restart deluge-web
+    sudo systemctl status deluge-web
+    log "Finished restarting deluge"
+}
+
 # Restart all services
 restart_all() {
     log "Restarting all services..."
     restart_nginx
     restart_samba
+    restart_deluge
     restart_docker_service "homepage"
     restart_docker_service "portainer"
     restart_docker_service "jellyfin"
@@ -140,6 +159,9 @@ restart_service() {
             ;;
         samba)
             restart_samba
+            ;;
+        deluge)
+            restart_deluge
             ;;
         homepage|portainer|jellyfin)
             restart_docker_service $service_name
