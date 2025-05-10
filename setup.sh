@@ -50,6 +50,14 @@ update_homepage() {
     log "Finished updating homepage"
 }
 
+update_jellyfin() {
+    log "Updating jellyfin"
+    if [ ! -d "$APPS_DIR/jellyfin" ]; then
+        mkdir "$APPS_DIR/jellyfin" && mkdir "$APPS_DIR/jellyfin/config" && mkdir "$APPS_DIR/jellyfin/cache"
+    fi
+    log "Finished updating jellyfin"
+}
+
 # Update configurations by creating symlinks
 update() {
     log "Starting configuration update..."
@@ -62,6 +70,7 @@ update() {
     ln -s "$SOURCE_DIR/apps/portainer" "$APPS_DIR/portainer"
     log "Create nginx conf symbolic link"
     ln -s "$SOURCE_DIR/apps/nginx/main.conf" "/etc/nginx/conf.d/main.conf"
+    update_jellyfin
     log "Configuration updated finished"
 }
 
