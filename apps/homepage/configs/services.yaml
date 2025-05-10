@@ -8,3 +8,12 @@
           url: http://steel.fmn.com/portainer
           env: 3
           key: ptr_K0qXeR5zwwF9NKm+q7shs91yIu1wBeGOZcCFgpzVkAM=
+- Entertaiment:
+    - Jellyfin:
+        icon: jellyfin.png
+        href: http://steel.fmn.com/portainer
+        description: Media streaming
+        widget:
+          type: jellyfin
+          url: http://steel.fmn.com/portainer
+          key: 7d9fcc4529d345bd9d6bdb5de62d7e46
