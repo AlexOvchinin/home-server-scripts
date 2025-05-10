@@ -55,7 +55,7 @@ update_jellyfin() {
     if [ ! -d "$APPS_DIR/jellyfin" ]; then
         mkdir "$APPS_DIR/jellyfin" && mkdir "$APPS_DIR/jellyfin/config" && mkdir "$APPS_DIR/jellyfin/cache"
     fi
-    log "Creating docker compose symlink
+    log "Creating docker compose symlink"
     if [ ! -d "$APPS_DIR/jellyfin/docker-compose.yaml" ]; then
         ln -s "$SOURCE_DIR/apps/jellyfin/docker-compose.yaml" "$APPS_DIR/jellyfin/docker-compose.yaml"
     fi
