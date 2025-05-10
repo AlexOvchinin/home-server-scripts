@@ -97,6 +97,7 @@ restart_all() {
     restart_nginx
     restart_docker_service "homepage"
     restart_docker_service "portainer"
+    restart_docker_service "jellyfin"
     log "All services restarted."
 }
 
@@ -114,20 +115,13 @@ restart_service() {
         nginx)
             restart_nginx
             ;;
-        homepage|portainer)
+        homepage|portainer|jellyfin)
             restart_docker_service $service_name
             ;;
         *)
             log "Unknown service $service_name"
             exit 1
     esac
-    # Example implementation:
-    # if [ -f "$APPS_DIR/$service_name.conf" ]; then
-    #     systemctl restart "$service_name"
-    # else
-    #     log "ERROR: Service $service_name not found"
-    #     return 1
-    # fi
 }
 
 # Show status of all services
@@ -135,11 +129,6 @@ show_status() {
     log "Current service status:"
     docker ps
     systemctl status nginx
-    # Example implementation:
-    # while read -r config; do
-    #     local service=$(basename "$config" .conf)
-    #     systemctl status "$service" --no-pager -l
-    # done < <(ls "$APPS_DIR"/*.conf)
 }
 
 # Main command processor
