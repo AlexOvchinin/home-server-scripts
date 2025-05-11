@@ -10,6 +10,10 @@ services:
         source: /cold/videos
         target: /videos
         read_only: true
+      - type: bind
+        source: /cold/torrents/complete
+        target: /torrents
+        read_only: true
       # Optional - extra fonts to be used during transcoding with subtitle burn-in
       # - type: bind
         # source: /path/to/fonts
