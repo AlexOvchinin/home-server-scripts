@@ -4,6 +4,7 @@ services:
     image: jesec/flood
     container_name: flood
     command: --port 3001 --allowedpath /downloads
+    user: 0:0
     environment:
       - HOME=/config
       - TZ=Asia/Yekaterinburg
