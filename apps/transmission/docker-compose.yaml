@@ -1,10 +1,24 @@
-version: "3.7"
 services:
+  flood:
+    hostname: flood
+    image: jesec/flood
+    container_name: flood
+    command: --port 3001 --allowedpath /downloads
+    environment:
+      - HOME=/config
+      - TZ=Asia/Yekaterinburg
+    volumes:
+      - /hot/apps/flood/config:/config
+      - /cold/torrents:/downloads
+    ports:
+      - 127.0.0.1:3001:3000
+    restart: unless-stopped
   transmission:
     image: lscr.io/linuxserver/transmission
     container_name: transmission
     environment:
       - TZ=Aisa/Yekaterinburg # Your current timezone
+      - TRANSMISSION_WEB_HOME=/hot/apps/flood/config
     volumes:
       - /hot/apps/transmission/config:/config # Change this to your docker config folder
       - /cold/torrents:/download # Change this to your download folder

@@ -70,6 +70,18 @@ update_samba() {
     log "Finished updating samba"
 }
 
+update_flood() {
+    log "Updating flood"
+    log "Create config folders"
+    if [ ! -d "$APPS_DIR/flood" ]; then
+        mkdir "$APPS_DIR/flood"
+    fi
+    if [ ! -d "$APPS_DIR/flood/config" ]; then
+        mkdir "$APPS_DIR/flood/config"
+    fi
+    log "Finished updating flood"
+}
+
 update_transmission() {
     log "Updating transmission"
     log "Create config folders"
@@ -81,7 +93,7 @@ update_transmission() {
     fi
     log "Create docker compose symlink"
     ln -snf "$SOURCE_DIR/apps/transmission/docker-compose.yaml" "$APPS_DIR/transmission/docker-compose.yaml"
-    log "Finished updating deluge"
+    log "Finished updating transmission"
 }
 
 # Update configurations by creating symlinks
