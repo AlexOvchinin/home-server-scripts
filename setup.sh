@@ -73,12 +73,13 @@ update_samba() {
 update_transmission() {
     log "Updating transmission"
     log "Create config folders"
-    if [ ! -d "$APPS_DIR/transmission"]; then
+    if [ ! -d "$APPS_DIR/transmission" ]; then
         mkdir "$APPS_DIR/transmission"
     fi
-    if [ ! -d "$APPS_DIR/transmission/config"]; then
+    if [ ! -d "$APPS_DIR/transmission/config" ]; then
         mkdir "$APPS_DIR/transmission/config"
     fi
+    log "Create docker compose symlink"
     ln -snf "$SOURCE_DIR/apps/transmission/docker-compose.yaml" "$APPS_DIR/transmission/docker-compose.yaml"
     log "Finished updating deluge"
 }
