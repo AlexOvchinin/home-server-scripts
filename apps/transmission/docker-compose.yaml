@@ -2,12 +2,10 @@ services:
   flood:
     hostname: flood
     image: jesec/flood
-    container_name: flood
-    command: --port 3001 --allowedpath /downloads
     user: 0:0
+    command: --port 3001 --allowedpath /downloads
     environment:
-      - HOME=/config
-      - TZ=Asia/Yekaterinburg
+      HOME: /config
     volumes:
       - /hot/apps/flood/config:/config
       - /cold/torrents:/downloads
