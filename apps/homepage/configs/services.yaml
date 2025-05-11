@@ -6,7 +6,7 @@
         widget:
           type: jellyfin
           url: http://steel.fmn.com/jellyfin
-          key: 7d9fcc4529d345bd9d6bdb5de62d7e46
+          key: {HOMEPAGE_VAR_JELLYFIN_KEY}
 - Utility:
     - Utility:
         icon: transmission.png
@@ -26,5 +26,4 @@
           type: portainer
           url: http://steel.fmn.com/portainer
           env: 3
-          key: ptr_K0qXeR5zwwF9NKm+q7shs91yIu1wBeGOZcCFgpzVkAM=
-
+          key: {HOMEPAGE_VAR_PORTAINER_KEY}
