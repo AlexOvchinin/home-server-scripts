@@ -15,6 +15,8 @@
         widget:
           type: transmission
           url: http://steel.fmn.com/transmission
+          username: {{HOMEPAGE_VAR_TRANSMISSION_RPC_USERNAME}}
+          password: {{HOMEPAGE_VAR_TRANSMISSION_RPC_PASSWORD}}
 - Management:
     - Portainer:
         icon: portainer.png
