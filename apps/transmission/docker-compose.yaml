@@ -17,7 +17,6 @@ services:
     container_name: transmission
     environment:
       - TZ=Aisa/Yekaterinburg # Your current timezone
-      - TRANSMISSION_WEB_HOME=/hot/apps/flood/config
     volumes:
       - /hot/apps/transmission/config:/config # Change this to your docker config folder
       - /cold/torrents:/download # Change this to your download folder
