@@ -14,7 +14,7 @@
         description: Torrent client
         widget:
           type: transmission
-          url: 127.0.0.1:9091
+          url: http://127.0.0.1:9091
           username: {HOMEPAGE_VAR_TRANSMISSION_RPC_USERNAME}
           password: {HOMEPAGE_VAR_TRANSMISSION_RPC_PASSWORD}
 - Management:
