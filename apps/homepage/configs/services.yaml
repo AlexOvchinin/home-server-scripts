@@ -14,7 +14,7 @@
         description: Torrent client
         widget:
           type: transmission
-          url: http://steel.fmn.com/transmission
+          url: http://steel.fmn.com/transmissin/rpc
           username: {HOMEPAGE_VAR_TRANSMISSION_RPC_USERNAME}
           password: {HOMEPAGE_VAR_TRANSMISSION_RPC_PASSWORD}
 - Management:
