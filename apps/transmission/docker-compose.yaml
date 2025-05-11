@@ -1,18 +1,4 @@
 services:
-  flood:
-    hostname: flood
-    image: jesec/flood
-    user: 0:0
-    command: --port 3001 --allowedpath /downloads
-    environment:
-      HOME: /config
-    volumes:
-      - /hot/apps/flood/config:/config
-      - /cold/torrents:/downloads
-    ports:
-      - 3001:3001
-    restart: unless-stopped
-
   transmission:
     image: lscr.io/linuxserver/transmission
     container_name: transmission

@@ -96,20 +96,6 @@ update_transmission() {
     log "Finished updating transmission"
 }
 
-update_rtorrent() {
-    log "Updating rtorrent"
-    log "Create config folders"
-    if [ ! -d "$APPS_DIR/rtorrent" ]; then
-        mkdir "$APPS_DIR/rtorrent"
-    fi
-    if [ ! -d "$APPS_DIR/rtorrent/config" ]; then
-        mkdir "$APPS_DIR/rtorrent/config"
-    fi
-    log "Create docker compose symlink"
-    ln -snf "$SOURCE_DIR/apps/rtorrent/docker-compose.yaml" "$APPS_DIR/rtorrent/docker-compose.yaml"
-    log "Finished updating rtorrent"
-}
-
 # Update configurations by creating symlinks
 update() {
     log "Starting configuration update..."
@@ -125,7 +111,6 @@ update() {
     update_jellyfin
     update_samba
     update_transmission
-    update_rtorrent
     log "Configuration updated finished"
 }
 
@@ -163,7 +148,6 @@ restart_all() {
     restart_docker_service "portainer"
     restart_docker_service "jellyfin"
     restart_docker_service "transmission"
-    restart_docker_service "rtorrent"
     sudo docker ps
     log "All services restarted."
 }
@@ -185,7 +169,7 @@ restart_service() {
         samba)
             restart_samba
             ;;
-        homepage|portainer|jellyfin|transmission|rtorrent)
+        homepage|portainer|jellyfin|transmission)
             restart_docker_service $service_name
             ;;
         *)
