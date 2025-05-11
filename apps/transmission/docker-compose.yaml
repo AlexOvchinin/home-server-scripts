@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  transmission:
+    image: lscr.io/linuxserver/transmission
+    container_name: transmission
+    environment:
+      - TZ=Aisa/Yekaterinburg # Your current timezone
+    volumes:
+      - /hot/apps/transmission/config:/config # Change this to your docker config folder
+      - /cold/torrents:/download # Change this to your download folder
+    ports:
+      - 9091:9091 # Web UI port
+      - 51413:51413 # Torrent port (TCP)
+      - 51413:51413/udp # Torrent port (UDP)
+    restart: unless-stopped # This makes sure that the application restarts when it crashes

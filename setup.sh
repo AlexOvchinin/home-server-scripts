@@ -70,11 +70,16 @@ update_samba() {
     log "Finished updating samba"
 }
 
-update_deluge() {
-    log "Updating delude"
-    log "Create systemd services"
-    ln -sfn "$SOURCE_DIR/apps/deluge/deluged.service" "/etc/systemd/system/deluged.service"
-    ln -sfn "$SOURCE_DIR/apps/deluge/deluge-web.service" "/etc/systemd/system/deluge-web.service"
+update_transmission() {
+    log "Updating transmission"
+    log "Create config folders"
+    if [ ! -d "$APPS_DIR/transmission"]; then
+        mkdir "$APPS_DIR/transmission"
+    fi
+    if [ ! -d "$APPS_DIR/transmission/config"]; then
+        mkdir "$APPS_DIR/transmission/config"
+    fi
+    ln -snf "$SOURCE_DIR/apps/transmission/docker-compose.yaml" "$APPS_DIR/transmission/docker-compose.yaml"
     log "Finished updating deluge"
 }
 
@@ -93,6 +98,7 @@ update() {
     update_jellyfin
     update_samba
     update_deluge
+    update_transmission
     log "Configuration updated finished"
 }
 
@@ -121,24 +127,15 @@ restart_docker_service() {
     docker compose -f "$APPS_DIR/$service_name/docker-compose.yaml" up -d --force-recreate
 }
 
-restart_deluge() {
-    log "Restaring deluge"
-    systemctl restart deluged
-    sudo systemctl status deluged
-    systemctl restart deluge-web
-    sudo systemctl status deluge-web
-    log "Finished restarting deluge"
-}
-
 # Restart all services
 restart_all() {
     log "Restarting all services..."
     restart_nginx
     restart_samba
-    restart_deluge
     restart_docker_service "homepage"
     restart_docker_service "portainer"
     restart_docker_service "jellyfin"
+    restart_docker_service "transmission"
     sudo docker ps
     log "All services restarted."
 }
@@ -160,10 +157,7 @@ restart_service() {
         samba)
             restart_samba
             ;;
-        deluge)
-            restart_deluge
-            ;;
-        homepage|portainer|jellyfin)
+        homepage|portainer|jellyfin|transmission)
             restart_docker_service $service_name
             ;;
         *)
