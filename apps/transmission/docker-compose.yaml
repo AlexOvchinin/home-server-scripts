@@ -19,11 +19,9 @@ services:
     environment:
       - TZ=Aisa/Yekaterinburg # Your current timezone
       - DOCKER_MODS=linuxserver/mods:transmission-floodui
-      # - WHITELIST=localhost
-      # - HOST_WHITELIST=localhost
     volumes:
       - /hot/apps/transmission/config:/config # Change this to your docker config folder
-      - /cold/torrents:/download # Change this to your download folder
+      - /cold/torrents:/downloads # Change this to your download folder
     ports:
       - 9091:9091 # Web UI port
       - 51413:51413 # Torrent port (TCP)
