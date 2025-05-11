@@ -12,11 +12,14 @@ services:
     ports:
       - 3001:3001
     restart: unless-stopped
+
   transmission:
     image: lscr.io/linuxserver/transmission
     container_name: transmission
     environment:
       - TZ=Aisa/Yekaterinburg # Your current timezone
+      - WHITELIST=localhost
+      - HOST_WHITELIST=localhost
     volumes:
       - /hot/apps/transmission/config:/config # Change this to your docker config folder
       - /cold/torrents:/download # Change this to your download folder
