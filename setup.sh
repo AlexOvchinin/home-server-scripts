@@ -123,8 +123,10 @@ restart_nginx() {
 
 restart_samba() {
     log "Restaring samba"
-    systemctl restart smbd
+    sudo systemctl restart smbd
     sudo systemctl status smbd
+    sudo systemctl restart wsdd-server
+    sudo systemctl status wsdd-server
     log "Finished restarting samba"
 }
 
