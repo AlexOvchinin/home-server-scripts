@@ -18,7 +18,7 @@ log() {
 show_help() {
     echo "Usage: $0 [command] [options]"
     echo "Commands:"
-    echo "  update-configs    - Update service configurations by creating symlinks"
+    echo "  update            - Update all service configurations by creating symlinks"
     echo "  launch-all        - Launch all service"
     echo "  restart-all       - Restart all services"
     echo "  restart <service> - Restart a specific service"
