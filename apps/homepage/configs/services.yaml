@@ -8,10 +8,10 @@
           url: http://steel.fmn.com/jellyfin
           key: {{HOMEPAGE_VAR_JELLYFIN_KEY}}
 - Utility:
-    - Utility:
+    - Torrents:
         icon: transmission.png
         href: http://steel.fmn.com/transmission
-        description: Torrent client
+        description: Transmission torrent client
         widget:
           type: transmission
           url: http://steel.fmn.com/transmission/rpc
