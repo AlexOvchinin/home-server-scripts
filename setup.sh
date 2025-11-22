@@ -61,6 +61,22 @@ update_jellyfin() {
     log "Finished updating jellyfin"
 }
 
+update_immich() {
+    log "Updating immich"
+    if [ ! -d "$APPS_DIR/immich" ]; then
+        mkdir "$APPS_DIR/immich" && mkdir "$APPS_DIR/immich/postgres"
+    fi
+    log "Creating docker compose symlink"
+    if [ ! -d "$APPS_DIR/immich/docker-compose.yaml" ]; then
+        ln -s "$SOURCE_DIR/apps/immich/docker-compose.yaml" "$APPS_DIR/immich/docker-compose.yaml"
+    fi
+    log "Creating .env link"
+    if [ ! -d "$APPS_DIR/immich/.env" ]; then
+        ln -s "$SOURCE_DIR/apps/immich/.env" "$APPS_DIR/immich/.env"
+    fi
+    log "Finished updating immich"
+}
+
 update_samba() {
     log "Updating samba"
     if [ ! -d "/etc/samba/smb.conf" ]; then
@@ -111,6 +127,7 @@ update() {
     update_jellyfin
     update_samba
     update_transmission
+    update_immich
     log "Configuration updated finished"
 }
 
@@ -150,6 +167,7 @@ restart_all() {
     restart_docker_service "portainer"
     restart_docker_service "jellyfin"
     restart_docker_service "transmission"
+    restart_docker_service "immich"
     sudo docker ps
     log "All services restarted."
 }
@@ -171,7 +189,7 @@ restart_service() {
         samba)
             restart_samba
             ;;
-        homepage|portainer|jellyfin|transmission)
+        homepage|portainer|jellyfin|transmission|immich)
             restart_docker_service $service_name
             ;;
         *)

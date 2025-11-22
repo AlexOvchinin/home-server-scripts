@@ -1,0 +1,1 @@
+`.secret_env` file with db password should be placed in /hot/apps/immich folder on the server
