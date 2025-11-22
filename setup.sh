@@ -63,6 +63,7 @@ update_jellyfin() {
 
 update_immich() {
     log "Updating immich"
+    mkdir -p /cold/immich/library
     if [ ! -d "$APPS_DIR/immich" ]; then
         mkdir "$APPS_DIR/immich" && mkdir "$APPS_DIR/immich/postgres"
     fi
