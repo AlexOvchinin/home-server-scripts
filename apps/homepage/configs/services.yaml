@@ -7,6 +7,15 @@
           type: jellyfin
           url: http://steel.fmn.com/jellyfin
           key: {{HOMEPAGE_VAR_JELLYFIN_KEY}}
+    - Immich:
+        icon: immich.png
+        href: http://steel.fmn.com/immich
+        descritption: Photo storage
+        widget:
+          type: immich
+          url: http://steel.fmn.com/immich
+          key: {{HOMEPAGE_VAR_IMMICH_KEY}}
+          version: 2 # optional, default is 1
 - Utility:
     - Torrents:
         icon: transmission.png
